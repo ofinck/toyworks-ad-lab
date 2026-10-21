@@ -16,6 +16,19 @@
   The internal network will connect the domain controller and future Windows client machines.
 
   Internet connectivity is not provided directly through this internal network. External access may be introduced separately when required.
+## Domain Controller Network Configuration
+| Setting | Value |
+|---|---|
+| Hostname | TW-DC01 |
+| IPv4 Address | 192.168.50.10 |
+| Subnet Mask | 255.255.255.0 |
+| Default Gateway | None |
+| Preferred DNS | 192.168.50.10 |
+| Virtual Network | Toyworks-LAN |
+
+The domain controller uses a static IP address so domain clients can consistently locate its services.
+
+The default gateway is omitted because the lab network is currently isolated and has no router. The server will provide DNS after the DNS role is installed and configured.
   
 ## Design Decisions
   Configuration decisions will be documented as the lab develops, including the reasons for each decision and any alternatives considered.
@@ -33,7 +46,6 @@
 | Virtual Disk | 60 GB |
 | Disk Allocation | Dynamically allocated |
 | Hypervisor | Oracle VirtualBox |
-| Network | VirtualBox Internal Network: Toyworks-LAN |
 
 ### Configuration Rationale
 - **2 vCPUs:** Sufficient for a small lab running Active Directory Domain Services and DNS.
