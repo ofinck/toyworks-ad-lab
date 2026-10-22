@@ -30,3 +30,27 @@ The incorrect deployment configuration was selected because I had not yet review
 
 ### Verification
 Changing that option on the Deployment Configuration step allowed the wizard to continue and the domain controller promotion completed successfully.
+
+## Issue: 2
+**Date:** 10-22-2026 **System:** TW-DC01 **Component:** DNS Server/DNS name resolution
+
+### Symptoms
+Running nslookup TW-DC01.ad.toyworks.test results in a DNS request timeout. The output identifies the DNS server as UnKnown when using the IPv6 loopback address (::1). When explicitly querying the IPv4 loopback address (127.0.0.1), the server is identified as localhost, but the query still times out. Despite the timeouts, both queries eventually return the expected hostname and IPv4 address.
+
+### Initial investigation
+- Confirmed that the DNS Server service is running.
+- Confirmed that the system has DNS listeners on port 53 for UDP and TCP.
+- Successfully resolved TW-DC01.ad.toyworks.test using Resolve-DnsName against 127.0.0.1.
+- Tested nslookup against the IPv4 and IPv6 loopback addresses. Both returned the expected DNS record but also reported request timeouts.
+- DNS listening-address configuration returns the correct IP address for TW-DC01.
+- DNS server event log does not list any obvious errors.
+- nslookup debug output reported the DNS request timeout before displaying the expected A record
+- Compared DNS resolution using Resolve-DnsName and nslookup requesting the same A record from the domain controller's IPv4 address. Resolve-DnsName returned the expected IPv4 address and nslookup reported a DNS request timeout but afterwards returned the expected IPv4 address.
+
+### Root Cause
+Undetermined. The available evidence confirms that the DNS server can resolve the domain controller's A record, but it does not explain why nslookup reports a timeout. Further investigation is required to identify the cause.
+### Status
+**Deferred.** Normal DNS resolution has been resolved using Resolve-DnsName. The intermittent or command specific timeout behavior remains unexplained. No configuration changes were made because the investigation has not identified a a confirmed cause.
+
+
+
