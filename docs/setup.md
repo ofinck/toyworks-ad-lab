@@ -28,4 +28,34 @@ Installed Active Directory Domain Services role on TW-DC01 through Server Manage
 The role installation completed successfully.
 
 ## 4. Promote the Sever to a Domain Controller
-In progress. 
+Used the Active Directory Domain Services Configuration Wizard and entered the following selections:
+
+### Deployment Configuration
+
+| Setting | Value |
+|---|---|
+| Deployment operation | Add a new forest |
+| Root domain name | `ad.toyworks.test` |
+| NetBIOS domain name | `TOYWORKS` |
+| Domain controller hostname | `TW-DC01` |
+
+### Domain Controller Options
+
+| Setting | Value |
+|---|---|
+| Domain functional level | Windows Server 2025 |
+| Forest functional level | Windows Server 2025 |
+| DNS Server | Enabled |
+| Global Catalog | Enabled |
+| Read-only domain controller (RODC) | Disabled |
+| DSRM password | Configured and stored securely |
+
+### Additional Configuration
+
+| Setting | Value |
+|---|---|
+| DNS delegation | No |
+| Database path | C:\WINDOWS\NTDS |
+| Log files path | C:\WINDOWS\NTDS |
+| SYSVOL path | C:\WINDOWS\SYSVOL |
+| Prerequisites check | Passed, with a DNS delegation warning |
